@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CFO Cloud Cost Bot</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#6fa3b5;
+    position:relative;
+    overflow:hidden;
+}
+
+/* Clouds */
+body::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background:
+        url("clouds.png") no-repeat 5% 10%,
+        url("clouds.png") no-repeat 25% 15%,
+        url("clouds.png") no-repeat 45% 8%,
+        url("clouds.png") no-repeat 65% 18%,
+        url("clouds.png") no-repeat 85% 10%,
+
+        url("clouds.png") no-repeat 10% 60%,
+        url("clouds.png") no-repeat 30% 70%,
+        url("clouds.png") no-repeat 55% 65%,
+        url("clouds.png") no-repeat 75% 75%;
+
+    background-size:
+        170px, 180px, 160px, 190px, 170px,
+        150px, 170px, 160px, 180px;
+
+    opacity:0.5;
+    z-index:0;
+    animation: floatClouds 50s linear infinite;
+}
+
+@keyframes floatClouds{
+    0% { transform:translateX(0); }
+    100% { transform:translateX(-80px); }
+}
+
+/* Container */
+.container{
+    position:relative;
+    z-index:1;
+
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(15px);
+
+    padding:30px;
+    border-radius:20px;
+    width:340px;
+    text-align:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Title */
+h2{
+    font-size:22px;
+    margin-bottom:20px;
+    color:#1f2937;
+}
+
+/* Labels */
+label{
+    display:block;
+    text-align:left;
+    margin-top:10px;
+    font-size:14px;
+    color:#374151;
+}
+
+/* Inputs */
+input{
+    width:100%;
+    padding:14px;
+    margin-top:5px;
+    border:none;
+    border-radius:12px;
+    background:#ffffffcc;
+    color:#111;
+    font-size:16px;
+    outline:none;
+}
+
+/* Button */
+button{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:12px;
+    background:#4f8fa3;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#3e7788;
+}
+
+/* Result */
+.result{
+    margin-top:15px;
+    background:#ffffffcc;
+    padding:14px;
+    border-radius:12px;
+    font-size:16px;
+    color:#111;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>☁️ CFO Cloud Cost Bot</h2>
+
+<label>Compute</label>
+<input id="compute" type="number">
+
+<label>Storage</label>
+<input id="storage" type="number">
+
+<label>Bandwidth</label>
+<input id="bandwidth" type="number">
+
+<label>Database</label>
+<input id="database" type="number">
+
+<button onclick="calc()">Calculate Cost</button>
+
+<div class="result" id="res">Estimated Cost: $0</div>
+
+</div>
+
+<script>
+function calc(){
+
+let c = compute.value*0.05 || 0;
+let s = storage.value*0.01 || 0;
+let b = bandwidth.value*0.02 || 0;
+let d = database.value*0.03 || 0;
+
+let total = c+s+b+d;
+
+res.innerHTML = `
+Total: $${total.toFixed(2)}<br>
+Compute: $${c.toFixed(2)}<br>
+Storage: $${s.toFixed(2)}<br>
+Bandwidth: $${b.toFixed(2)}<br>
+Database: $${d.toFixed(2)}
+`;
+
+}
+</script>
+
+</body>
+</html>
